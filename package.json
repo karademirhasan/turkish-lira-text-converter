@@ -1,0 +1,31 @@
+{
+  "name": "turkish-lira-number-to-text-converter",
+  "description": "Converter Turkish Lira number to text",
+  "version": "0.1.0-alpha.1",
+  "license": "MIT",
+  "keywords": [
+    "try",
+    "try-converter",
+    "try-to-text",
+    "turkish",
+    "lira"
+  ],
+  "author": "Hasan Karademir",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hasankarademir/turkish-lira-text-converter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hasankarademir/turkish-lira-text-converter/issues"
+  },
+  "homepage": "https://github.com/hasankarademir/turkish-lira-text-converter/blob/main/README.md",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.49.7",
+    "vite": "^2.7.2"
+  }
+}
