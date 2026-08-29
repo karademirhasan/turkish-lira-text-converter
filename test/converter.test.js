@@ -10,6 +10,10 @@ test('accepts integer, one-decimal, and two-decimal amounts', () => {
 
 test('accepts Turkish thousands and decimal separators', () => {
   assert.equal(
+    tryToTextConverter('12,30'),
+    'ON İKİ TÜRK LİRASI OTUZ KURUŞ',
+  );
+  assert.equal(
     tryToTextConverter('1.234,56'),
     'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
   );
@@ -42,4 +46,21 @@ test('returns normalized single-line whitespace', () => {
   );
   assert.equal(result, result.trim());
   assert.equal(/\s{2,}|[\r\n\t]/u.test(result), false);
+});
+
+test('rejects invalid types and malformed amount syntax with TypeError', () => {
+  for (const value of ['', 'abc', '1,2.3', '1.23,45', null, undefined, {}, NaN, Infinity]) {
+    assert.throws(() => tryToTextConverter(value), TypeError);
+  }
+});
+
+test('rejects negative, over-precision, and unsafe numeric amounts with RangeError', () => {
+  for (const value of [-1, '-1,00', '12.345', 12.345, Number.MAX_SAFE_INTEGER + 1]) {
+    assert.throws(() => tryToTextConverter(value), RangeError);
+  }
+});
+
+test('rejects values beyond the supported scale with RangeError', () => {
+  const beyondVigintillion = `1${'0'.repeat(66)}`;
+  assert.throws(() => tryToTextConverter(beyondVigintillion), RangeError);
 });

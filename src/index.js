@@ -50,35 +50,78 @@ const scales = [
 ];
 
 function normalizeAmount(value) {
-  const amount = typeof value === 'number' ? String(value) : value;
+  if (typeof value !== 'number' && typeof value !== 'string') {
+    throw new TypeError('Amount must be a number or string');
+  }
+
+  let amount;
+  let isNegative = false;
+
+  if (typeof value === 'number') {
+    if (!Number.isFinite(value)) {
+      throw new TypeError('Amount must be finite');
+    }
+    if (value < 0) {
+      throw new RangeError('Amount must not be negative');
+    }
+    if (Number.isInteger(value) && !Number.isSafeInteger(value)) {
+      throw new RangeError('Amount must be a safe number');
+    }
+
+    amount = String(value);
+    if (/[eE]/.test(amount) || /^\d+\.\d{3,}$/.test(amount)) {
+      throw new RangeError('Amount must have at most two decimal digits');
+    }
+  } else {
+    amount = value.trim();
+    if (amount === '') {
+      throw new TypeError('Amount must not be empty');
+    }
+
+    if (amount.startsWith('-')) {
+      isNegative = true;
+      amount = amount.slice(1);
+    }
+    if (/[+-]/.test(amount)) {
+      throw new TypeError('Invalid amount sign');
+    }
+  }
+
   let liraDigits;
   let kurusDigits = '';
 
-  if (amount.includes(',')) {
-    const [integerPart, decimalPart, extraPart] = amount.split(',');
-    if (
-      extraPart !== undefined
-      || !/^\d{1,2}$/.test(decimalPart)
-      || !(
-        /^\d+$/.test(integerPart)
-        || /^\d{1,3}(?:\.\d{3})+$/.test(integerPart)
-      )
-    ) {
-      throw new TypeError('Invalid amount');
-    }
+  if (
+    /^\d+\.\d{3,}$/.test(amount)
+    || /^\d+,\d{3,}$/.test(amount)
+    || /^\d{1,3}(?:\.\d{3})*,\d{3,}$/.test(amount)
+  ) {
+    throw new RangeError('Amount must have at most two decimal digits');
+  }
 
-    liraDigits = integerPart.replaceAll('.', '');
-    kurusDigits = decimalPart;
-  } else if (/^\d+\.\d{1,2}$/.test(amount)) {
+  if (/^\d{1,3}(?:\.\d{3})*,\d{1,2}$/.test(amount)) {
+    [liraDigits, kurusDigits] = amount.split(',');
+    liraDigits = liraDigits.replaceAll('.', '');
+  } else if (/^\d+(?:\.\d{1,2})?$/.test(amount) && amount.includes('.')) {
     [liraDigits, kurusDigits] = amount.split('.');
+  } else if (/^\d+(?:,\d{1,2})?$/.test(amount) && amount.includes(',')) {
+    [liraDigits, kurusDigits] = amount.split(',');
   } else if (/^\d+$/.test(amount)) {
     liraDigits = amount;
   } else {
     throw new TypeError('Invalid amount');
   }
 
+  if (isNegative) {
+    throw new RangeError('Amount must not be negative');
+  }
+
+  const normalizedLiraDigits = liraDigits.replace(/^0+(?=\d)/, '');
+  if (Math.ceil(normalizedLiraDigits.length / 3) > scales.length) {
+    throw new RangeError('Amount exceeds the supported scale');
+  }
+
   return {
-    liraDigits: liraDigits.replace(/^0+(?=\d)/, ''),
+    liraDigits: normalizedLiraDigits,
     kurus: Number(kurusDigits.padEnd(2, '0')),
   };
 }
