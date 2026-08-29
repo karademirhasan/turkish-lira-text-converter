@@ -14,3 +14,32 @@ test('accepts Turkish thousands and decimal separators', () => {
     'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
   );
 });
+
+test('renders Turkish hundreds and thousands grammar', () => {
+  const cases = [
+    [1, 'BİR TÜRK LİRASI'],
+    [10, 'ON TÜRK LİRASI'],
+    [100, 'YÜZ TÜRK LİRASI'],
+    [101, 'YÜZ BİR TÜRK LİRASI'],
+    [1000, 'BİN TÜRK LİRASI'],
+    [1001, 'BİN BİR TÜRK LİRASI'],
+    [2000, 'İKİ BİN TÜRK LİRASI'],
+    [1_000_000, 'BİR MİLYON TÜRK LİRASI'],
+    [1_000_001, 'BİR MİLYON BİR TÜRK LİRASI'],
+    [1_001_001, 'BİR MİLYON BİN BİR TÜRK LİRASI'],
+  ];
+
+  for (const [input, expected] of cases) {
+    assert.equal(tryToTextConverter(input), expected);
+  }
+});
+
+test('returns normalized single-line whitespace', () => {
+  const result = tryToTextConverter(1_203_004.05);
+  assert.equal(
+    result,
+    'BİR MİLYON İKİ YÜZ ÜÇ BİN DÖRT TÜRK LİRASI BEŞ KURUŞ',
+  );
+  assert.equal(result, result.trim());
+  assert.equal(/\s{2,}|[\r\n\t]/u.test(result), false);
+});
