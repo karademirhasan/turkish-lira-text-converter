@@ -35,6 +35,10 @@
   "bugs": {
     "url": "https://github.com/hasankarademir/turkish-lira-text-converter/issues"
   },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/hasankarademir"
+  },
   "homepage": "https://github.com/hasankarademir/turkish-lira-text-converter#readme",
   "scripts": {
     "test": "node --test",
