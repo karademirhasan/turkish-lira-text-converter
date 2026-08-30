@@ -4,7 +4,10 @@
   "version": "0.1.0-alpha.1",
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "import": "./src/index.js",
+      "require": "./src/index.cjs"
+    }
   },
   "files": [
     "src",
@@ -14,6 +17,7 @@
   "engines": {
     "node": ">=18"
   },
+  "sideEffects": false,
   "license": "MIT",
   "keywords": [
     "try",
@@ -33,6 +37,8 @@
   "homepage": "https://github.com/hasankarademir/turkish-lira-text-converter#readme",
   "scripts": {
     "test": "node --test",
+    "build:cjs": "node scripts/build-cjs.js",
+    "prepack": "npm run build:cjs",
     "demo": "node demo/server.js"
   }
 }

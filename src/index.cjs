@@ -176,4 +176,4 @@ function tryToTextConverter(amount) {
 }
 const TryToTextConverter = tryToTextConverter;
 
-export { TryToTextConverter, tryToTextConverter };
+module.exports = { TryToTextConverter, tryToTextConverter };

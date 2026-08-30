@@ -4,7 +4,7 @@ Convert Turkish lira amounts into uppercase Turkish text.
 
 ## Requirements
 
-This package is ESM-only and requires Node.js 18 or later.
+This package supports ESM and CommonJS and requires Node.js 18 or later.
 
 ## Installation
 
@@ -22,6 +22,12 @@ tryToTextConverter(1234.56);
 
 tryToTextConverter('1.234,56');
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
+```
+
+CommonJS projects can use the same package with `require`:
+
+```js
+const { tryToTextConverter } = require('turkish-lira-number-to-text-converter');
 ```
 
 ## Accepted inputs and output
