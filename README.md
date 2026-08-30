@@ -43,14 +43,6 @@ metne dönüştürür.
 Fonksiyon `string` döndürür. Sonuçta yalnızca tekli boşluklar bulunur; başta ve
 sonda boşluk olmaz.
 
-`TryToTextConverter`, geriye dönük uyumluluk için aynı fonksiyonun alias’ıdır:
-
-```js
-import { TryToTextConverter, tryToTextConverter } from 'turkish-lira-number-to-text-converter';
-
-TryToTextConverter === tryToTextConverter; // true
-```
-
 ## Girdi biçimleri
 
 JavaScript sayıları noktalı ondalık gösterim kullanır ve en fazla iki ondalık
@@ -140,15 +132,6 @@ Converts a Turkish lira amount to one uppercase Turkish sentence.
 
 Returns `string`. The result always uses single spaces and has no leading or
 trailing whitespace.
-
-The package also exports `TryToTextConverter` as a backwards-compatible alias
-of the same function:
-
-```js
-import { TryToTextConverter, tryToTextConverter } from 'turkish-lira-number-to-text-converter';
-
-TryToTextConverter === tryToTextConverter; // true
-```
 
 ### Input formats
 

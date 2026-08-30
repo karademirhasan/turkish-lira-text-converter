@@ -167,6 +167,5 @@ function tryToTextConverter(amount) {
 
   return resultWords.join(' ');
 }
-const TryToTextConverter = tryToTextConverter;
 
-module.exports = { TryToTextConverter, tryToTextConverter };
+module.exports = { tryToTextConverter };
