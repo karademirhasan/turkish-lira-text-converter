@@ -65,3 +65,69 @@ test('accepts the 66-digit vigintillion boundary', () => {
   const vigintillion = `1${'0'.repeat(65)}`;
   assert.equal(convertTurkishLiraToText(vigintillion), 'YÜZ VİGİNTİLYON TÜRK LİRASI');
 });
+
+test('renders zero, kuruş, leading-zero, and negative-zero boundaries', () => {
+  const cases = [
+    ['0,01', 'SIFIR TÜRK LİRASI BİR KURUŞ'],
+    ['0,10', 'SIFIR TÜRK LİRASI ON KURUŞ'],
+    ['1,01', 'BİR TÜRK LİRASI BİR KURUŞ'],
+    ['000012,30', 'ON İKİ TÜRK LİRASI OTUZ KURUŞ'],
+    [-0, 'SIFIR TÜRK LİRASI'],
+  ];
+
+  for (const [input, expected] of cases) {
+    assert.equal(convertTurkishLiraToText(input), expected);
+  }
+});
+
+test('renders every supported scale name', () => {
+  const scaleWords = [
+    'BİN',
+    'MİLYON',
+    'MİLYAR',
+    'TRİLYON',
+    'KATRİLYON',
+    'KENTİLYON',
+    'SEKSİLYON',
+    'SEPTİLYON',
+    'OKTİLYON',
+    'NONİLYON',
+    'DESİLYON',
+    'UNDESİLYON',
+    'DODESİLYON',
+    'TREDESİLYON',
+    'KATORDESİLYON',
+    'KENDESİLYON',
+    'SEKSDESİLYON',
+    'SEPTENDESİLYON',
+    'OKTODESİLYON',
+    'NOVEMDESİLYON',
+    'VİGİNTİLYON',
+  ];
+
+  for (const [index, scaleWord] of scaleWords.entries()) {
+    const input = `1${'000'.repeat(index + 1)}`;
+    const expectedPrefix = index === 0 ? 'BİN' : `BİR ${scaleWord}`;
+    assert.equal(convertTurkishLiraToText(input), `${expectedPrefix} TÜRK LİRASI`);
+  }
+});
+
+test('rejects malformed grouping, unexpected whitespace, and signed zero strings', () => {
+  for (const value of ['12.34.567', '1.23,45', '1 234,56', '1\u00a0234,56']) {
+    assert.throws(() => convertTurkishLiraToText(value), TypeError);
+  }
+
+  assert.throws(() => convertTurkishLiraToText('-0'), RangeError);
+});
+
+test('valid outputs contain words with normalized whitespace only', () => {
+  const inputs = [0, '0,01', '000012,30', '1.234,56', `1${'0'.repeat(65)}`];
+
+  for (const input of inputs) {
+    const result = convertTurkishLiraToText(input);
+    assert.equal(/\d/u.test(result), false);
+    assert.equal(result.includes('undefined'), false);
+    assert.equal(result, result.trim());
+    assert.equal(/\s{2,}|[\r\n\t]/u.test(result), false);
+  }
+});
