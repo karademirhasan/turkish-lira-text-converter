@@ -10,7 +10,10 @@ test('accepts integer, one-decimal, and two-decimal amounts', () => {
 
 test('accepts Turkish thousands and decimal separators', () => {
   assert.equal(convertTurkishLiraToText('12,30'), 'ON İKİ TÜRK LİRASI OTUZ KURUŞ');
-  assert.equal(convertTurkishLiraToText('1.234,56'), 'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ');
+  assert.equal(
+    convertTurkishLiraToText('1.234,56'),
+    'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
+  );
   assert.equal(convertTurkishLiraToText('1.234'), 'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI');
 });
 

@@ -16,6 +16,7 @@
   "files": [
     "src",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "engines": {
@@ -54,6 +55,7 @@
     "format:check": "prettier --check .",
     "typecheck": "tsc -p tsconfig.typecheck.json",
     "build:cjs": "node scripts/build-cjs.js",
+    "verify:package": "node scripts/verify-package.js",
     "prepack": "npm run build:cjs",
     "demo": "node demo/server.js"
   },
