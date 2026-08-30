@@ -1,20 +1,24 @@
-> Bu dokümantasyon Türkçe ve İngilizcedir. / This documentation is in Turkish and English.
+# Turkish Lira Number to Text Converter
 
-# Türkçe Lira Sayıdan Metne Dönüştürücü
+Türk lirası tutarlarını büyük harfli Türkçe metne dönüştüren, çalışma zamanı
+bağımlılığı olmayan JavaScript paketi. Node.js, CommonJS, TypeScript ve modern
+browser bundler'larını destekler.
 
-Türk lirası tutarlarını Türkçe metne dönüştürür.
+Dependency-free JavaScript package that converts Turkish lira amounts to
+uppercase Turkish text. Supports Node.js, CommonJS, TypeScript, and modern
+browser bundlers.
 
-## Gereksinimler
+## Kurulum / Installation
 
-Bu paket ESM ve CommonJS destekler; Node.js 18 veya üzeri gerektirir.
-
-## Kurulum
+Node.js 22 veya üzeri gerekir. / Requires Node.js 22 or later.
 
 ```sh
 npm install turkish-lira-number-to-text-converter
 ```
 
-## Kullanım
+## Kullanım / Usage
+
+### ESM
 
 ```js
 import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
@@ -23,168 +27,130 @@ convertTurkishLiraToText(1234.56);
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
 ```
 
-CommonJS projelerinde:
+### CommonJS
 
 ```js
 const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');
+
+convertTurkishLiraToText('1.234,56');
+// BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
 ```
 
-## API referansı
+### TypeScript
+
+Paket kendi tip tanımını içerir; ayrıca `@types` paketi kurulmaz.
+
+```ts
+import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+
+const result: string = convertTurkishLiraToText('1.234,56');
+```
+
+### Browser ve bundler / Browser and bundler
+
+Vite, webpack, Rollup veya esbuild kullanan browser projelerinde normal npm
+import'u kullanılabilir:
+
+```js
+import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+
+document.querySelector('#result').textContent = convertTurkishLiraToText('1.234,56');
+```
+
+Bundler olmadan, yayınlanan ESM dosyası CDN üzerinden doğrudan yüklenebilir.
+Üretimde sürümü URL içinde sabitleyin:
+
+```html
+<script type="module">
+  import { convertTurkishLiraToText } from 'https://cdn.jsdelivr.net/npm/turkish-lira-number-to-text-converter@0.1.0/src/index.js';
+
+  document.querySelector('#result').textContent = convertTurkishLiraToText('1.234,56');
+</script>
+```
+
+Browser'lar `turkish-lira-number-to-text-converter` gibi çıplak paket adlarını
+tek başına çözmez. Bu biçim için bundler veya import map gerekir.
+
+## API
 
 ### `convertTurkishLiraToText(amount)`
 
-Negatif olmayan bir Türk lirası tutarını tek satırlık, büyük harfli Türkçe
-metne dönüştürür.
+Negatif olmayan Türk lirası tutarını tek satırlık, büyük harfli Türkçe metne
+dönüştürür. `amount`, `number` veya `string` olabilir; dönüş tipi `string`dir.
 
-| Parametre | Tip                | Açıklama                     |
-| --------- | ------------------ | ---------------------------- |
-| `amount`  | `number \| string` | Negatif olmayan lira tutarı. |
+Converts a non-negative Turkish lira amount into one uppercase Turkish sentence.
+`amount` may be a `number` or `string`; the return type is `string`.
 
-Fonksiyon `string` döndürür. Sonuçta yalnızca tekli boşluklar bulunur; başta ve
-sonda boşluk olmaz.
+### Girdi biçimleri / Input formats
 
-## Girdi biçimleri
-
-JavaScript sayıları noktalı ondalık gösterim kullanır ve en fazla iki ondalık
-basamak içerebilir:
+JavaScript sayıları en fazla iki ondalık basamak içerebilir:
 
 ```js
-convertTurkishLiraToText(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText(1234);
 convertTurkishLiraToText(1234.5); // ... ELLİ KURUŞ
 convertTurkishLiraToText(1234.56); // ... ELLİ ALTI KURUŞ
 ```
 
-String değerlerde Türkçe ayraçlar kullanılır. Nokta binlik ayraç, virgül kuruş
-ayracıdır. Virgül yoksa kuruş `00` kabul edilir:
+String girdiler Türkçe binlik ve kuruş ayraçlarını destekler:
 
 ```js
-convertTurkishLiraToText('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
-convertTurkishLiraToText('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
+convertTurkishLiraToText('1.234'); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText('1.234,56'); // ... ELLİ ALTI KURUŞ
 convertTurkishLiraToText('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
 ```
 
-JavaScript güvenli tamsayı aralığını aşan değerlerde string kullanın. İkiden
-fazla ondalık basamak reddedilir; fonksiyon sessizce yuvarlama yapmaz.
+Noktalı programatik ondalık stringler de kabul edilir; ancak üç basamaklı son
+gruba sahip `1.234` gibi değerler Türkçe binlik gruplama olarak yorumlanır.
 
-## Hatalar
+Kuruş sıfırsa sonuçta kuruş bölümü yazılmaz. Tek kuruş basamağı sağdan sıfırla
+tamamlanır; `12,3`, 30 kuruş anlamına gelir. Fonksiyon sessizce yuvarlama yapmaz.
 
-| Hata         | Ne zaman oluşur                                                                       |
-| ------------ | ------------------------------------------------------------------------------------- |
-| `TypeError`  | Desteklenmeyen tip, boş değer veya geçersiz ayraç/işaret biçimi.                      |
-| `RangeError` | Negatif değer, ikiden fazla ondalık basamak, güvensiz sayı veya desteklenmeyen ölçek. |
+JavaScript güvenli tamsayı aralığını aşan kesin değerleri string olarak verin.
+Desteklenen tamsayı bölümü en fazla 66 basamaktır; daha büyük değerler reddedilir.
 
-Hatalar senkron olarak fırlatılır. Geçersiz girdiler için `undefined` veya
-kısmi sonuç döndürülmez.
+Dot-decimal programmatic strings are also accepted, except values such as
+`1.234` with a three-digit final group are interpreted as Turkish thousands
+grouping. Zero kuruş is omitted, one decimal digit is padded on the right, and
+values are never rounded silently. Use strings for exact values beyond
+JavaScript's safe integer range. The integer part may contain at most 66 digits.
 
-## Geliştirme
+## Hatalar / Errors
+
+| Hata / Error | Ne zaman / When                                                                                                                                                              |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TypeError`  | Desteklenmeyen tip, boş değer, sonlu olmayan sayı veya geçersiz ayraç/işaret biçimi. / Unsupported type, empty value, non-finite number, or malformed separator/sign syntax. |
+| `RangeError` | Negatif değer, ikiden fazla ondalık basamak, güvensiz number veya desteklenen ölçeğin aşılması. / Negative, over-precision, unsafe numeric, or out-of-scale value.           |
+
+Hatalar senkron olarak fırlatılır; fonksiyon `undefined` veya kısmi sonuç dönmez.
+Errors are thrown synchronously; the function never returns `undefined` or a
+partial result.
+
+## Paket özellikleri / Package characteristics
+
+- Tek public export: `convertTurkishLiraToText`
+- ESM ve CommonJS girişleri
+- Dahili TypeScript tanımı
+- Sıfır çalışma zamanı bağımlılığı
+- Node.js ve browser-targeted build testleri
+- Gerçek npm tarball tüketici doğrulaması
+
+## Geliştirme / Development
 
 ```sh
 npm test
 npm run typecheck
 npm run lint
 npm run format:check
-npm run demo
+npm run test:browser
+npm run verify:package
 ```
 
----
-
-# Turkish Lira Number to Text Converter
-
-Convert Turkish lira amounts into Turkish text.
-
-## Requirements
-
-This package supports ESM and CommonJS and requires Node.js 18 or later.
-
-## Installation
-
-```sh
-npm install turkish-lira-number-to-text-converter
-```
-
-## Usage
-
-```js
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
-
-convertTurkishLiraToText(1234.56);
-// BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
-
-convertTurkishLiraToText('1.234,56');
-// BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
-```
-
-CommonJS projects can use the same package with `require`:
-
-```js
-const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');
-```
-
-## API reference
-
-### `convertTurkishLiraToText(amount)`
-
-Converts a Turkish lira amount to one uppercase Turkish sentence.
-
-| Parameter | Type               | Description                 |
-| --------- | ------------------ | --------------------------- |
-| `amount`  | `number \| string` | A non-negative lira amount. |
-
-Returns `string`. The result always uses single spaces and has no leading or
-trailing whitespace.
-
-### Input formats
-
-Numbers use JavaScript's decimal-point notation and may have at most two
-decimal digits:
-
-```js
-convertTurkishLiraToText(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
-convertTurkishLiraToText(1234.5); // ... ELLİ KURUŞ
-convertTurkishLiraToText(1234.56); // ... ELLİ ALTI KURUŞ
-```
-
-Strings use Turkish separators. A period is a thousands separator and a comma
-is the cents separator. If the comma is omitted, cents are `00`:
-
-```js
-convertTurkishLiraToText('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
-convertTurkishLiraToText('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
-convertTurkishLiraToText('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
-```
-
-Use strings for values larger than JavaScript's safe integer range. Values with
-more than two decimal digits are rejected; the function never rounds silently.
-
-## Output
-
-The converter returns a normalized, single-line uppercase Turkish string. A
-single decimal digit is padded to two digits (`12.3` becomes 12 lira, 30
-kuruş). Amounts with more than two decimal digits are rejected.
-
-The converter returns a normalized, single-line uppercase Turkish string, for
-example `BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ`.
-
-## Errors
-
-| Error        | Thrown when                                                                                                             |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `TypeError`  | The input is not a number/string, is non-finite, empty, or has invalid separator/sign syntax.                           |
-| `RangeError` | The amount is negative, has more than two decimal digits, uses an unsafe numeric value, or exceeds the supported scale. |
-
-Errors are thrown synchronously. The function does not return `undefined` or a
-partially converted result for invalid input.
-
-## Development
-
-Run the tests with:
-
-```sh
-npm test
-```
-
-Run the local demo with:
+Yerel demo / Local demo:
 
 ```sh
 npm run demo
 ```
+
+## Lisans / License
+
+MIT
