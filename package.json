@@ -54,6 +54,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc -p tsconfig.typecheck.json",
+    "test:browser": "node --test test/browser-entry.test.js",
     "build:cjs": "node scripts/build-cjs.js",
     "verify:package": "node scripts/verify-package.js",
     "prepack": "npm run build:cjs",
@@ -61,6 +62,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
+    "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
     "prettier": "^3.9.6",
     "typescript": "^5.9.3"
