@@ -89,9 +89,11 @@ function normalizeLiraAmount(amount) {
 
   let liraDigits;
   let centsDigits = '';
+  const isGroupedInteger = typeof amount === 'string'
+    && /^\d{1,3}(?:\.\d{3})+$/.test(normalizedInput);
 
   if (
-    /^\d+\.\d{3,}$/.test(normalizedInput)
+    (!isGroupedInteger && /^\d+\.\d{3,}$/.test(normalizedInput))
     || /^\d+,\d{3,}$/.test(normalizedInput)
     || /^\d{1,3}(?:\.\d{3})*,\d{3,}$/.test(normalizedInput)
   ) {
@@ -101,6 +103,8 @@ function normalizeLiraAmount(amount) {
   if (/^\d{1,3}(?:\.\d{3})*,\d{1,2}$/.test(normalizedInput)) {
     [liraDigits, centsDigits] = normalizedInput.split(',');
     liraDigits = liraDigits.replaceAll('.', '');
+  } else if (isGroupedInteger) {
+    liraDigits = normalizedInput.replaceAll('.', '');
   } else if (/^\d+(?:\.\d{1,2})?$/.test(normalizedInput) && normalizedInput.includes('.')) {
     [liraDigits, centsDigits] = normalizedInput.split('.');
   } else if (/^\d+(?:,\d{1,2})?$/.test(normalizedInput) && normalizedInput.includes(',')) {

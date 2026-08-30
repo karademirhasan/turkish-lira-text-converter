@@ -3,6 +3,7 @@
   "description": "Convert Turkish lira amounts to Turkish text",
   "version": "0.1.0-alpha.1",
   "type": "module",
+  "types": "./src/index.d.ts",
   "exports": {
     ".": {
       "import": "./src/index.js",

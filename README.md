@@ -33,7 +33,8 @@ const { tryToTextConverter } = require('turkish-lira-number-to-text-converter');
 ## Accepted inputs and output
 
 Pass a non-negative number or string. Strings may use Turkish grouped thousands
-with periods and a comma decimal separator, such as `'1.234,56'`. A single
+with periods, with or without a comma decimal separator, such as `'1.234'` or
+`'1.234,56'`. A single
 decimal digit is padded to two digits (`12.3` becomes 12 lira, 30 kuruş).
 Amounts with more than two decimal digits are rejected.
 

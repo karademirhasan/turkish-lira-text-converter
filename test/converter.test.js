@@ -17,6 +17,10 @@ test('accepts Turkish thousands and decimal separators', () => {
     tryToTextConverter('1.234,56'),
     'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
   );
+  assert.equal(
+    tryToTextConverter('1.234'),
+    'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI',
+  );
 });
 
 test('renders Turkish hundreds and thousands grammar', () => {
@@ -55,7 +59,7 @@ test('rejects invalid types and malformed amount syntax with TypeError', () => {
 });
 
 test('rejects negative, over-precision, and unsafe numeric amounts with RangeError', () => {
-  for (const value of [-1, '-1,00', '12.345', 12.345, Number.MAX_SAFE_INTEGER + 1]) {
+  for (const value of [-1, '-1,00', '1234.567', 12.345, Number.MAX_SAFE_INTEGER + 1]) {
     assert.throws(() => tryToTextConverter(value), RangeError);
   }
 });
