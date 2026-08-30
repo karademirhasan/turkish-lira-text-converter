@@ -13,8 +13,6 @@ form.addEventListener('submit', (event) => {
   try {
     result.textContent = tryToTextConverter(input.value);
   } catch (caughtError) {
-    error.textContent = caughtError instanceof Error
-      ? caughtError.message
-      : String(caughtError);
+    error.textContent = caughtError instanceof Error ? caughtError.message : String(caughtError);
   }
 });

@@ -9,18 +9,9 @@ test('accepts integer, one-decimal, and two-decimal amounts', () => {
 });
 
 test('accepts Turkish thousands and decimal separators', () => {
-  assert.equal(
-    tryToTextConverter('12,30'),
-    'ON İKİ TÜRK LİRASI OTUZ KURUŞ',
-  );
-  assert.equal(
-    tryToTextConverter('1.234,56'),
-    'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
-  );
-  assert.equal(
-    tryToTextConverter('1.234'),
-    'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI',
-  );
+  assert.equal(tryToTextConverter('12,30'), 'ON İKİ TÜRK LİRASI OTUZ KURUŞ');
+  assert.equal(tryToTextConverter('1.234,56'), 'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ');
+  assert.equal(tryToTextConverter('1.234'), 'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI');
 });
 
 test('renders Turkish hundreds and thousands grammar', () => {
@@ -44,10 +35,7 @@ test('renders Turkish hundreds and thousands grammar', () => {
 
 test('returns normalized single-line whitespace', () => {
   const result = tryToTextConverter(1_203_004.05);
-  assert.equal(
-    result,
-    'BİR MİLYON İKİ YÜZ ÜÇ BİN DÖRT TÜRK LİRASI BEŞ KURUŞ',
-  );
+  assert.equal(result, 'BİR MİLYON İKİ YÜZ ÜÇ BİN DÖRT TÜRK LİRASI BEŞ KURUŞ');
   assert.equal(result, result.trim());
   assert.equal(/\s{2,}|[\r\n\t]/u.test(result), false);
 });
@@ -75,8 +63,5 @@ test('rejects exponent-rendered numeric input with RangeError', () => {
 
 test('accepts the 66-digit vigintillion boundary', () => {
   const vigintillion = `1${'0'.repeat(65)}`;
-  assert.equal(
-    tryToTextConverter(vigintillion),
-    'YÜZ VİGİNTİLYON TÜRK LİRASI',
-  );
+  assert.equal(tryToTextConverter(vigintillion), 'YÜZ VİGİNTİLYON TÜRK LİRASI');
 });

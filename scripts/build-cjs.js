@@ -1,6 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import prettier from 'prettier';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const sourcePath = resolve(projectRoot, 'src/index.js');
@@ -17,4 +18,11 @@ const commonJsSource = source.replace(
   'module.exports = { TryToTextConverter, tryToTextConverter };',
 );
 
-await writeFile(targetPath, commonJsSource, 'utf8');
+const formattedCommonJsSource = await prettier.format(commonJsSource, {
+  filepath: targetPath,
+  printWidth: 100,
+  singleQuote: true,
+  trailingComma: 'all',
+});
+
+await writeFile(targetPath, formattedCommonJsSource, 'utf8');

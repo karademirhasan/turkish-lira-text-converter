@@ -18,9 +18,7 @@ function send(response, statusCode, message) {
 
 function isOutsideRoot(root, filePath) {
   const relativePath = relative(root, filePath);
-  return relativePath === '..'
-    || relativePath.startsWith(`..${sep}`)
-    || isAbsolute(relativePath);
+  return relativePath === '..' || relativePath.startsWith(`..${sep}`) || isAbsolute(relativePath);
 }
 
 async function serve(request, response) {
@@ -28,9 +26,7 @@ async function serve(request, response) {
 
   try {
     const queryStart = request.url.indexOf('?');
-    const rawPath = queryStart === -1
-      ? request.url
-      : request.url.slice(0, queryStart);
+    const rawPath = queryStart === -1 ? request.url : request.url.slice(0, queryStart);
     const decodedRawPath = decodeURIComponent(rawPath).replaceAll('\\', '/');
 
     if (decodedRawPath.split('/').includes('..')) {
@@ -88,8 +84,8 @@ export function createDemoServer() {
   return createServer(serve);
 }
 
-const isExecutedEntry = process.argv[1]
-  && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+const isExecutedEntry =
+  process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
 
 if (isExecutedEntry) {
   createDemoServer().listen(4173, '127.0.0.1', () => {

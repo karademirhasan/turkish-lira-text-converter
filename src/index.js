@@ -1,15 +1,4 @@
-const UNIT_WORDS = [
-  '',
-  'BİR',
-  'İKİ',
-  'ÜÇ',
-  'DÖRT',
-  'BEŞ',
-  'ALTI',
-  'YEDİ',
-  'SEKİZ',
-  'DOKUZ',
-];
+const UNIT_WORDS = ['', 'BİR', 'İKİ', 'ÜÇ', 'DÖRT', 'BEŞ', 'ALTI', 'YEDİ', 'SEKİZ', 'DOKUZ'];
 
 const TENS_WORDS = [
   '',
@@ -89,13 +78,13 @@ function normalizeLiraAmount(amount) {
 
   let liraDigits;
   let centsDigits = '';
-  const isGroupedInteger = typeof amount === 'string'
-    && /^\d{1,3}(?:\.\d{3})+$/.test(normalizedInput);
+  const isGroupedInteger =
+    typeof amount === 'string' && /^\d{1,3}(?:\.\d{3})+$/.test(normalizedInput);
 
   if (
-    (!isGroupedInteger && /^\d+\.\d{3,}$/.test(normalizedInput))
-    || /^\d+,\d{3,}$/.test(normalizedInput)
-    || /^\d{1,3}(?:\.\d{3})*,\d{3,}$/.test(normalizedInput)
+    (!isGroupedInteger && /^\d+\.\d{3,}$/.test(normalizedInput)) ||
+    /^\d+,\d{3,}$/.test(normalizedInput) ||
+    /^\d{1,3}(?:\.\d{3})*,\d{3,}$/.test(normalizedInput)
   ) {
     throw new RangeError('Amount must have at most two decimal digits');
   }

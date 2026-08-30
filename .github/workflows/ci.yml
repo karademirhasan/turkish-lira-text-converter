@@ -24,3 +24,5 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Run tests
         run: npm test
+      - name: Type-check package declarations
+        run: npm run typecheck
