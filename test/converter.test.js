@@ -64,3 +64,15 @@ test('rejects values beyond the supported scale with RangeError', () => {
   const beyondVigintillion = `1${'0'.repeat(66)}`;
   assert.throws(() => tryToTextConverter(beyondVigintillion), RangeError);
 });
+
+test('rejects exponent-rendered numeric input with RangeError', () => {
+  assert.throws(() => tryToTextConverter(1e-7), RangeError);
+});
+
+test('accepts the 66-digit vigintillion boundary', () => {
+  const vigintillion = `1${'0'.repeat(65)}`;
+  assert.equal(
+    tryToTextConverter(vigintillion),
+    'YÜZ VİGİNTİLYON TÜRK LİRASI',
+  );
+});

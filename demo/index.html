@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Turkish Lira Text Converter</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main id="app">
+      <h1>Turkish Lira Text Converter</h1>
+      <form id="converter-form">
+        <label for="amount">Amount in Turkish lira</label>
+        <input id="amount" name="amount" inputmode="decimal" value="1.234,56" required>
+        <button type="submit">Convert</button>
+      </form>
+      <section class="result-panel" aria-live="polite">
+        <h2>Result</h2>
+        <output id="result" for="amount"></output>
+        <p id="error" role="alert"></p>
+      </section>
+    </main>
+    <script type="module" src="./demo.js"></script>
+  </body>
+</html>
