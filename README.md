@@ -17,21 +17,21 @@ npm install turkish-lira-number-to-text-converter
 ## Kullanım
 
 ```js
-import { tryToTextConverter } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
 
-tryToTextConverter(1234.56);
+convertTurkishLiraToText(1234.56);
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
 ```
 
 CommonJS projelerinde:
 
 ```js
-const { tryToTextConverter } = require('turkish-lira-number-to-text-converter');
+const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');
 ```
 
 ## API referansı
 
-### `tryToTextConverter(amount)`
+### `convertTurkishLiraToText(amount)`
 
 Negatif olmayan bir Türk lirası tutarını tek satırlık, büyük harfli Türkçe
 metne dönüştürür.
@@ -49,18 +49,18 @@ JavaScript sayıları noktalı ondalık gösterim kullanır ve en fazla iki onda
 basamak içerebilir:
 
 ```js
-tryToTextConverter(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
-tryToTextConverter(1234.5); // ... ELLİ KURUŞ
-tryToTextConverter(1234.56); // ... ELLİ ALTI KURUŞ
+convertTurkishLiraToText(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText(1234.5); // ... ELLİ KURUŞ
+convertTurkishLiraToText(1234.56); // ... ELLİ ALTI KURUŞ
 ```
 
 String değerlerde Türkçe ayraçlar kullanılır. Nokta binlik ayraç, virgül kuruş
 ayracıdır. Virgül yoksa kuruş `00` kabul edilir:
 
 ```js
-tryToTextConverter('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
-tryToTextConverter('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
-tryToTextConverter('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
+convertTurkishLiraToText('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
+convertTurkishLiraToText('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
 ```
 
 JavaScript güvenli tamsayı aralığını aşan değerlerde string kullanın. İkiden
@@ -105,24 +105,24 @@ npm install turkish-lira-number-to-text-converter
 ## Usage
 
 ```js
-import { tryToTextConverter } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
 
-tryToTextConverter(1234.56);
+convertTurkishLiraToText(1234.56);
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
 
-tryToTextConverter('1.234,56');
+convertTurkishLiraToText('1.234,56');
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
 ```
 
 CommonJS projects can use the same package with `require`:
 
 ```js
-const { tryToTextConverter } = require('turkish-lira-number-to-text-converter');
+const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');
 ```
 
 ## API reference
 
-### `tryToTextConverter(amount)`
+### `convertTurkishLiraToText(amount)`
 
 Converts a Turkish lira amount to one uppercase Turkish sentence.
 
@@ -139,18 +139,18 @@ Numbers use JavaScript's decimal-point notation and may have at most two
 decimal digits:
 
 ```js
-tryToTextConverter(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
-tryToTextConverter(1234.5); // ... ELLİ KURUŞ
-tryToTextConverter(1234.56); // ... ELLİ ALTI KURUŞ
+convertTurkishLiraToText(1234); // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText(1234.5); // ... ELLİ KURUŞ
+convertTurkishLiraToText(1234.56); // ... ELLİ ALTI KURUŞ
 ```
 
 Strings use Turkish separators. A period is a thousands separator and a comma
 is the cents separator. If the comma is omitted, cents are `00`:
 
 ```js
-tryToTextConverter('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
-tryToTextConverter('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
-tryToTextConverter('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
+convertTurkishLiraToText('1.234'); // ... OTUZ DÖRT TÜRK LİRASI
+convertTurkishLiraToText('1.234,56'); // ... OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
+convertTurkishLiraToText('12,3'); // ON İKİ TÜRK LİRASI OTUZ KURUŞ
 ```
 
 Use strings for values larger than JavaScript's safe integer range. Values with

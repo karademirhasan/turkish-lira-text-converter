@@ -1,4 +1,4 @@
-import { tryToTextConverter } from '../src/index.js';
+import { convertTurkishLiraToText } from '../src/index.js';
 
 const form = document.querySelector('#converter-form');
 const input = document.querySelector('#amount');
@@ -11,7 +11,7 @@ form.addEventListener('submit', (event) => {
   error.textContent = '';
 
   try {
-    result.textContent = tryToTextConverter(input.value);
+    result.textContent = convertTurkishLiraToText(input.value);
   } catch (caughtError) {
     error.textContent = caughtError instanceof Error ? caughtError.message : String(caughtError);
   }

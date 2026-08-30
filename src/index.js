@@ -159,7 +159,7 @@ function liraIntegerToWords(digits) {
   return resultWords.length === 0 ? ['SIFIR'] : resultWords;
 }
 
-function tryToTextConverter(amount) {
+function convertTurkishLiraToText(amount) {
   const { liraDigits, cents } = normalizeLiraAmount(amount);
   const resultWords = [...liraIntegerToWords(liraDigits), 'TÜRK', 'LİRASI'];
 
@@ -168,4 +168,4 @@ function tryToTextConverter(amount) {
   return resultWords.join(' ');
 }
 
-export { tryToTextConverter };
+export { convertTurkishLiraToText };

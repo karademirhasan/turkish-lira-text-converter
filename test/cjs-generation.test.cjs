@@ -13,7 +13,7 @@ test('build:cjs generates CommonJS from the ESM source', () => {
   assert.match(generated, /module\.exports/);
   assert.doesNotMatch(generated, /^export \{/mu);
   assert.equal(
-    require(resolve(root, 'src/index.cjs')).tryToTextConverter('1.234,56'),
+    require(resolve(root, 'src/index.cjs')).convertTurkishLiraToText('1.234,56'),
     'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
   );
 });
@@ -24,14 +24,14 @@ test('ESM and CommonJS exports produce identical results', async () => {
   const inputs = [0, 12.3, '1.234', '1.234,56', '12,30', '1.000.001'];
 
   for (const input of inputs) {
-    assert.equal(cjs.tryToTextConverter(input), esm.tryToTextConverter(input));
+    assert.equal(cjs.convertTurkishLiraToText(input), esm.convertTurkishLiraToText(input));
   }
 
   for (const input of [-1, 'abc', '12.3456']) {
     assert.throws(
-      () => cjs.tryToTextConverter(input),
+      () => cjs.convertTurkishLiraToText(input),
       (cjsError) => {
-        assert.throws(() => esm.tryToTextConverter(input), { name: cjsError.name });
+        assert.throws(() => esm.convertTurkishLiraToText(input), { name: cjsError.name });
         return true;
       },
     );
