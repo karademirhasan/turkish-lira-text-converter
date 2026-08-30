@@ -26,3 +26,28 @@ jobs:
         run: npm test
       - name: Type-check package declarations
         run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
+
+  typecheck:
+    name: TypeScript ${{ matrix.typescript-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        typescript-version: [5.8.2, 5.9.3]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install package dependencies
+        run: npm ci --ignore-scripts
+      - name: Install TypeScript version
+        run: npm install --no-save --no-package-lock --ignore-scripts "typescript@${{ matrix.typescript-version }}"
+      - name: Type-check declarations
+        run: npm run typecheck

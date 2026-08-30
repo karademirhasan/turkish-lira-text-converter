@@ -17,3 +17,23 @@ test('build:cjs generates CommonJS from the ESM source', () => {
     'BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ',
   );
 });
+
+test('ESM and CommonJS exports produce identical results', async () => {
+  const esm = await import('turkish-lira-number-to-text-converter');
+  const cjs = require('turkish-lira-number-to-text-converter');
+  const inputs = [0, 12.3, '1.234', '1.234,56', '12,30', '1.000.001'];
+
+  for (const input of inputs) {
+    assert.equal(cjs.tryToTextConverter(input), esm.tryToTextConverter(input));
+  }
+
+  for (const input of [-1, 'abc', '12.3456']) {
+    assert.throws(
+      () => cjs.tryToTextConverter(input),
+      (cjsError) => {
+        assert.throws(() => esm.tryToTextConverter(input), { name: cjsError.name });
+        return true;
+      },
+    );
+  }
+});
