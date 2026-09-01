@@ -1,4 +1,4 @@
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-text-converter';
 
 const numberResult: string = convertTurkishLiraToText(1234.56);
 const stringResult: string = convertTurkishLiraToText('1.234,56');

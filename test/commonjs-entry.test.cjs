@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const test = require('node:test');
 
 test('CommonJS consumers can require the package entry', () => {
-  const converter = require('turkish-lira-number-to-text-converter');
+  const converter = require('turkish-lira-text-converter');
 
   assert.deepEqual(Object.keys(converter), ['convertTurkishLiraToText']);
   assert.equal(typeof converter.convertTurkishLiraToText, 'function');

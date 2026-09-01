@@ -17,7 +17,7 @@ test('package entry bundles and runs for browsers', async (t) => {
   await build({
     stdin: {
       contents:
-        "import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';\n" +
+        "import { convertTurkishLiraToText } from 'turkish-lira-text-converter';\n" +
         "globalThis.__conversionResult = convertTurkishLiraToText('1.234,56');",
       resolveDir: root,
     },

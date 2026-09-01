@@ -55,7 +55,7 @@ try {
   await writeFile(join(esmDirectory, 'package.json'), '{"type":"module"}\n');
   await writeFile(
     join(esmDirectory, 'index.js'),
-    "import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';\n" +
+    "import { convertTurkishLiraToText } from 'turkish-lira-text-converter';\n" +
       "console.log(convertTurkishLiraToText('1.234,56'));\n",
   );
   await installTarball(esmDirectory, tarballPath);
@@ -64,7 +64,7 @@ try {
   await writeFile(join(commonJsDirectory, 'package.json'), '{"type":"commonjs"}\n');
   await writeFile(
     join(commonJsDirectory, 'index.cjs'),
-    "const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');\n" +
+    "const { convertTurkishLiraToText } = require('turkish-lira-text-converter');\n" +
       "console.log(convertTurkishLiraToText('1.234,56'));\n",
   );
   await installTarball(commonJsDirectory, tarballPath);
@@ -76,7 +76,7 @@ try {
   await writeFile(join(typescriptDirectory, 'package.json'), '{"type":"module"}\n');
   await writeFile(
     join(typescriptDirectory, 'consumer.ts'),
-    "import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';\n" +
+    "import { convertTurkishLiraToText } from 'turkish-lira-text-converter';\n" +
       "const result: string = convertTurkishLiraToText('1.234,56');\n" +
       'void result;\n',
   );

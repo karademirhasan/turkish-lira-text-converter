@@ -13,7 +13,7 @@ browser bundlers.
 Node.js 22 veya üzeri gerekir. / Requires Node.js 22 or later.
 
 ```sh
-npm install turkish-lira-number-to-text-converter
+npm install turkish-lira-text-converter
 ```
 
 ## Kullanım / Usage
@@ -21,7 +21,7 @@ npm install turkish-lira-number-to-text-converter
 ### ESM
 
 ```js
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-text-converter';
 
 convertTurkishLiraToText(1234.56);
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
@@ -30,7 +30,7 @@ convertTurkishLiraToText(1234.56);
 ### CommonJS
 
 ```js
-const { convertTurkishLiraToText } = require('turkish-lira-number-to-text-converter');
+const { convertTurkishLiraToText } = require('turkish-lira-text-converter');
 
 convertTurkishLiraToText('1.234,56');
 // BİN İKİ YÜZ OTUZ DÖRT TÜRK LİRASI ELLİ ALTI KURUŞ
@@ -41,7 +41,7 @@ convertTurkishLiraToText('1.234,56');
 Paket kendi tip tanımını içerir; ayrıca `@types` paketi kurulmaz.
 
 ```ts
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-text-converter';
 
 const result: string = convertTurkishLiraToText('1.234,56');
 ```
@@ -52,7 +52,7 @@ Vite, webpack, Rollup veya esbuild kullanan browser projelerinde normal npm
 import'u kullanılabilir:
 
 ```js
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-text-converter';
 
 document.querySelector('#result').textContent = convertTurkishLiraToText('1.234,56');
 ```
@@ -62,13 +62,13 @@ Bundler olmadan, yayınlanan ESM dosyası CDN üzerinden doğrudan yüklenebilir
 
 ```html
 <script type="module">
-  import { convertTurkishLiraToText } from 'https://cdn.jsdelivr.net/npm/turkish-lira-number-to-text-converter@0.1.0/src/index.js';
+  import { convertTurkishLiraToText } from 'https://cdn.jsdelivr.net/npm/turkish-lira-text-converter@0.1.0/src/index.js';
 
   document.querySelector('#result').textContent = convertTurkishLiraToText('1.234,56');
 </script>
 ```
 
-Browser'lar `turkish-lira-number-to-text-converter` gibi çıplak paket adlarını
+Browser'lar `turkish-lira-text-converter` gibi çıplak paket adlarını
 tek başına çözmez. Bu biçim için bundler veya import map gerekir.
 
 ## API

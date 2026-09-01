@@ -1,5 +1,5 @@
 {
-  "name": "turkish-lira-number-to-text-converter",
+  "name": "turkish-lira-text-converter",
   "description": "Convert Turkish lira amounts to uppercase Turkish text in Node.js and browsers",
   "version": "0.1.0",
   "type": "module",
@@ -38,16 +38,16 @@
   "author": "Hasan Karademir",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hasankarademir/turkish-lira-text-converter.git"
+    "url": "git+https://github.com/karademirhasan/turkish-lira-text-converter.git"
   },
   "bugs": {
-    "url": "https://github.com/hasankarademir/turkish-lira-text-converter/issues"
+    "url": "https://github.com/karademirhasan/turkish-lira-text-converter/issues"
   },
   "funding": {
     "type": "individual",
-    "url": "https://github.com/sponsors/hasankarademir"
+    "url": "https://github.com/sponsors/karademirhasan"
   },
-  "homepage": "https://github.com/hasankarademir/turkish-lira-text-converter#readme",
+  "homepage": "https://github.com/karademirhasan/turkish-lira-text-converter#readme",
   "scripts": {
     "test": "node --test",
     "lint": "eslint .",

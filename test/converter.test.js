@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { convertTurkishLiraToText } from 'turkish-lira-number-to-text-converter';
+import { convertTurkishLiraToText } from 'turkish-lira-text-converter';
 
 test('accepts integer, one-decimal, and two-decimal amounts', () => {
   assert.equal(convertTurkishLiraToText(0), 'SIFIR TÜRK LİRASI');

@@ -19,8 +19,8 @@ test('build:cjs generates CommonJS from the ESM source', () => {
 });
 
 test('ESM and CommonJS exports produce identical results', async () => {
-  const esm = await import('turkish-lira-number-to-text-converter');
-  const cjs = require('turkish-lira-number-to-text-converter');
+  const esm = await import('turkish-lira-text-converter');
+  const cjs = require('turkish-lira-text-converter');
   const inputs = [0, 12.3, '1.234', '1.234,56', '12,30', '1.000.001'];
 
   for (const input of inputs) {

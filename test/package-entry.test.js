@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import * as converter from 'turkish-lira-number-to-text-converter';
+import * as converter from 'turkish-lira-text-converter';
 
 test('package self-reference exposes only convertTurkishLiraToText', () => {
   assert.deepEqual(Object.keys(converter), ['convertTurkishLiraToText']);
